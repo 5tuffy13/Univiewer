@@ -1,0 +1,26 @@
+# Universal File Viewer - pip dependencies for a clean install on Ubuntu.
+# Python 3.9+ recommended. See README.md for system (apt) packages.
+
+# GUI toolkit (pulls in PyQt6-Qt6 and PyQt6-sip automatically)
+PyQt6>=6.7,<7
+
+# PDF text extraction
+pypdf>=4.0
+
+# Microsoft Word .docx documents
+python-docx>=1.1.0
+
+# PowerPoint .pptx presentations
+python-pptx>=1.0
+
+# Legacy Microsoft Word .doc (best-effort, no external tools required)
+olefile>=0.46
+
+# Excel .xlsx spreadsheets
+openpyxl>=3.1
+
+# Extended image support and test-file generation
+Pillow>=10.0
+
+# Text encoding detection
+charset-normalizer>=3.3

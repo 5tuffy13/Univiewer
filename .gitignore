@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# Generated test fixtures (recreate with: python tools/make_test_files.py)
+test_files/
+
+# Build artifacts
+build/
+dist/
+
+# IDE
+.idea/
+.vscode/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
