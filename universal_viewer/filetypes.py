@@ -49,6 +49,15 @@ EXTENSION_CATEGORIES = {
     ".patch": CATEGORY_TEXT, ".makefile": CATEGORY_TEXT, ".cmake": CATEGORY_TEXT,
     ".json": CATEGORY_TEXT, ".geojson": CATEGORY_TEXT, ".ipynb": CATEGORY_TEXT,
     ".xml": CATEGORY_TEXT,
+    ".jsonc": CATEGORY_TEXT, ".css": CATEGORY_TEXT, ".rasi": CATEGORY_TEXT,
+    ".nim": CATEGORY_TEXT, ".r": CATEGORY_TEXT, ".m": CATEGORY_TEXT,
+    ".gitkeep": CATEGORY_TEXT, ".nfo": CATEGORY_TEXT,
+    ".org": CATEGORY_TEXT, ".adoc": CATEGORY_TEXT, ".asciidoc": CATEGORY_TEXT,
+    ".man": CATEGORY_TEXT, ".pod": CATEGORY_TEXT, ".wiki": CATEGORY_TEXT,
+    ".creole": CATEGORY_TEXT, ".textile": CATEGORY_TEXT, ".rest": CATEGORY_TEXT,
+    ".readme": CATEGORY_TEXT, ".changelog": CATEGORY_TEXT, ".license": CATEGORY_TEXT,
+    ".todo": CATEGORY_TEXT, ".dockerignore": CATEGORY_TEXT,
+    ".editorconfig": CATEGORY_TEXT, ".eslintrc": CATEGORY_TEXT, ".babelrc": CATEGORY_TEXT,
 
     ".md": CATEGORY_RICH_TEXT, ".markdown": CATEGORY_RICH_TEXT,
     ".html": CATEGORY_RICH_TEXT, ".htm": CATEGORY_RICH_TEXT,
@@ -89,13 +98,16 @@ def get_extension(path: str) -> str:
 
     @details Dot-files without a further dot (".env", ".gitignore") return
     their full name as the "extension" so they can be mapped in
-    EXTENSION_CATEGORIES.
+    EXTENSION_CATEGORIES. Emacs-style ".save" backup suffixes are stripped
+    first, so "style.css.save" resolves to ".css".
 
     @param path: Filesystem path to inspect.
     @return Lowercase extension including the leading dot (e.g. ".tar.gz"),
             or an empty string when the file has none.
     """
     name = os.path.basename(path).lower()
+    if name.endswith(".save"):
+        name = name[: -len(".save")]
     for composite in (".tar.gz", ".tar.bz2", ".tar.xz"):
         if name.endswith(composite):
             return composite

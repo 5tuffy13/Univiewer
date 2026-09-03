@@ -275,6 +275,60 @@ def make_book_files() -> None:
         handle.write(fb2)
 
 
+def make_syntax_files() -> None:
+    """@brief Write fixtures for the extended syntax-highlighting coverage."""
+    fixtures = {
+        "style.css": (
+            "/* theme */\nbody {\n  color: #204080;\n  margin: 0 auto;\n"
+            "  font-size: 14px;\n}\n@media (max-width: 600px) {\n  body { color: red; }\n}\n"
+        ),
+        "theme.rasi": (
+            "/* rofi theme */\n* { background-color: #202020; }\n"
+            "window { border: 2px; padding: 10px; }\nelement selected { text-color: white; }\n"
+        ),
+        "config.jsonc": (
+            "// main configuration\n{\n  \"host\": \"https://example.com\",  // endpoint\n"
+            "  \"retries\": 3,          /* attempts */\n  \"debug\": false\n}\n"
+        ),
+        "style.css.save": "/* emacs backup of style.css */\nbody { color: black; }\n",
+        "fib.nim": (
+            "# Fibonacci\nproc fib(n: int): int =\n  if n < 2:\n    return n\n"
+            "  return fib(n - 1) + fib(n - 2)\necho fib(10)\n"
+        ),
+        "analysis.r": (
+            "# Simple plot\nx <- 1:10\ny <- x^2\n"
+            "if (TRUE) { print(mean(y)) }\nplot(x, y)\n"
+        ),
+        "util.m": (
+            "% MATLAB helper\nfunction s = util(x)\n"
+            "% comment line\n  s = sum(x);\nend\n"
+        ),
+        "README.org": "* Heading one\nSome **bold** text.\n** Sub heading\n- item one\n- item two\n",
+        "doc.adoc": "= Document Title\n\n== Section\n\nThis is *bold* and _italic_.\n",
+        "page.man": ".TH TEST 1\n.SH NAME\ntest \\- test page\n.SH SYNOPSIS\n.B test [options]\n",
+        "query.sql": (
+            "-- fetch users\nSELECT id, name FROM users\n"
+            "WHERE age > 21 AND active = TRUE\nORDER BY name ASC;\n"
+        ),
+        ".editorconfig": "root = true\n\n[*]\ncharset = utf-8\nindent_style = space\n",
+        ".eslintrc": "{\"semi\": false, \"quotes\": [\"error\", \"single\"]}\n",
+        ".babelrc": "{\"presets\": [\"@babel/preset-env\"]}\n",
+        ".dockerignore": "node_modules\n.git\n*.log\n",
+        "notes.nfo": "ÚÄÄÄÄÄÄÄÄÄ¿\n³ NFO BOX ³\nÀÄÄÄÄÄÄÄÄÄÙ\n",
+        "TODO.todo": "- [ ] write tests\n- [x] ship viewer\n",
+        "app.pod": "=head1 NAME\n\napp - sample pod\n\n=head1 SYNOPSIS\n\napp [options]\n",
+        "guide.creole": "== Title\n\n**bold** and //italic//\n",
+        "page.wiki": "= Title =\n\n'''bold''' and ''italic''\n",
+        "doc.textile": "h1. Title\n\n*bold* and _italic_\n",
+        "kernel.log": "2026-09-03 10:00:01 INFO boot sequence complete\n" * 5,
+    }
+    for name, content in fixtures.items():
+        with open(os.path.join(OUTPUT, name), "w", encoding="utf-8") as handle:
+            handle.write(content)
+    with open(os.path.join(OUTPUT, ".gitkeep"), "w", encoding="utf-8") as handle:
+        handle.write("")
+
+
 def make_media_and_archive_files() -> None:
     """@brief Write WAV, ZIP, and TAR.GZ fixtures."""
     sample_rate = 22050
@@ -317,6 +371,7 @@ def main() -> int:
     make_image_files()
     make_pptx_file()
     make_book_files()
+    make_syntax_files()
     make_media_and_archive_files()
     with open(os.path.join(nested, "deep.txt"), "w", encoding="utf-8") as handle:
         handle.write("File inside a nested folder.\n")
